@@ -85,7 +85,8 @@ http://seuservidor/api.php
   "animes": [
     {
       "id": 1,
-      "name": "Naruto"
+      "name": "Naruto",
+      "image_url": "https://example.com/naruto.jpg"
     }
   ]
 }
@@ -98,7 +99,8 @@ http://seuservidor/api.php
 ```json
 {
   "id": 1,
-  "name": "Naruto"
+  "name": "Naruto",
+  "image_url": "https://example.com/naruto.jpg"
 }
 ```
 
@@ -112,7 +114,8 @@ http://seuservidor/api.php
     {
       "id": 1,
       "name": "Naruto",
-      "views": 1000
+      "views": 1000,
+      "image_url": "https://example.com/naruto.jpg"
     }
   ]
 }
