@@ -5,7 +5,7 @@ A API do AnimeFlix permite a autenticação de usuários, a listagem de animes e
 
 ## Base URL
 ```
-http://seuservidor/api.php
+http://seuservidor/api/api.php
 ```
 
 ## Endpoints
