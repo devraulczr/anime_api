@@ -24,15 +24,15 @@ if ($conn->connect_error) {
     exit;
 }
 
-$action = $_GET["endpoint"] ?? '';
+$endpoint = $_GET["endpoint"] ?? '';
 
-if (empty($action)) {
+if (empty($endpoint)) {
     echo json_encode(["error" => "Parameter 'endpoint' not provided"]);
     exit;
 }
 
 // LOGIN
-if ($action === "login") {
+if ($endpoint === "login") {
     $email = $_GET["email"] ?? '';
     $password = $_GET["password"] ?? '';
 
@@ -71,7 +71,7 @@ if ($action === "login") {
 }
 
 
-if ($action === "loginUser") {
+if ($endpoint === "loginUser") {
     $sql = "SELECT * FROM users WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $_GET["user_id"]);
@@ -90,7 +90,7 @@ if ($action === "loginUser") {
     exit;
 }
 
-if ($action === "animes") {
+if ($endpoint === "animes") {
     $cat = $_GET["cat"] ?? '';
 
     if (empty($cat)) {
@@ -122,7 +122,7 @@ if ($action === "animes") {
 
 
 // LIST EPISODES BY ANIME
-if ($action === "episodes") {
+if ($endpoint === "episodes") {
     $anime_id = $_GET["id"] ?? 0;
 
     if (!is_numeric($anime_id) || $anime_id <= 0) {
@@ -146,7 +146,7 @@ if ($action === "episodes") {
 }
 
 // LIST A SPECIFIC EPISODE
-if ($action === "episode") {
+if ($endpoint === "episode") {
     $query = "SELECT * FROM episodes WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $_GET["id"]);
@@ -164,7 +164,7 @@ if ($action === "episode") {
 }
 
 // LIST A SPECIFIC ANIME
-if ($action === "anime") {
+if ($endpoint === "anime") {
     $query = "SELECT * FROM animes WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $_GET["id"]);
@@ -180,7 +180,7 @@ if ($action === "anime") {
     echo json_encode($anime);
     exit;
 }
-if ($action === "view") {
+if ($endpoint === "view") {
     $anime_id = $_GET["id"] ?? '';
     
     if (empty($anime_id)) {
@@ -206,7 +206,7 @@ if ($action === "view") {
     exit;
 }
 
-if ($action === "verifyLogin") {
+if ($endpoint === "verifyLogin") {
     if (!isset($_SESSION["account_id"])) {
         echo json_encode(["success" => false]);
         exit;
@@ -215,7 +215,7 @@ if ($action === "verifyLogin") {
     exit;
 }
 
-if ($action === "verifyUser") {
+if ($endpoint === "verifyUser") {
     if (!isset($_SESSION["user_id"])) {
         echo json_encode(["success" => false]);
         exit;
@@ -226,14 +226,14 @@ if ($action === "verifyUser") {
 }
 
 
-if ($action === "select_account") {
+if ($endpoint === "select_account") {
     $sql = "SELECT * FROM users WHERE account_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $_SESSION["account_id"]);
     exit;
 }
 
-if ($action === "logout") {
+if ($endpoint === "logout") {
     echo json_encode(["success" => true]);
 
     session_unset();
@@ -248,7 +248,7 @@ if ($action === "logout") {
     header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
     exit;
 }
-if ($action === "logoutUser") {
+if ($endpoint === "logoutUser") {
     unset($_SESSION["user_id"]);
     if (!isset($_SESSION["user_id"])) {
         echo json_encode(["success" => true]);
@@ -256,7 +256,7 @@ if ($action === "logoutUser") {
     exit;
 }
 
-if ($action === "mostViewedAnimes") {
+if ($endpoint === "mostViewedAnimes") {
     $sql = "SELECT * FROM animes WHERE visible = 1 ORDER BY views DESC LIMIT 5";
     
     $result = $conn->query($sql);
@@ -275,7 +275,7 @@ if ($action === "mostViewedAnimes") {
     exit;
 }
 
-if ($action === "users") {
+if ($endpoint === "users") {
     $sql = "SELECT * FROM users WHERE account_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $_GET["account_id"]);
@@ -297,7 +297,7 @@ if ($action === "users") {
     exit;
 }
 
-if ($action === "account") {
+if ($endpoint === "account") {
     if (!isset($_SESSION["account_id"])) {
         http_response_code(404);
         echo json_encode(["error" => "Account id not found"]);
@@ -309,7 +309,7 @@ if ($action === "account") {
     exit;
 }
 
-if ($action === "user") {
+if ($endpoint === "user") {
     $sql = "SELECT * FROM users WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $_GET["id"]);
@@ -325,7 +325,7 @@ if ($action === "user") {
     exit;
 }
 
-if ($action === "markEpisodeWatched") {
+if ($endpoint === "markEpisodeWatched") {
     $ep_id = $_GET["id"];
     $user_id = $_SESSION["user_id"];
     $anime_id = null;
@@ -375,7 +375,7 @@ if ($action === "markEpisodeWatched") {
     echo json_encode(["success" => true]);
     exit;
 }
-if ($action === "watchedEpisodes") {
+if ($endpoint === "watchedEpisodes") {
     $anime_id = $_GET["anime_id"];
     $sql = "SELECT * FROM watched WHERE anime_id = ? AND user_id = ?";
     $stmt = $conn->prepare($sql);
