@@ -1,0 +1,98 @@
+body {
+    background-image: url("http://26.207.242.213/visionframe_v2/src/netflix.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.users {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+    text-align: center;
+    margin-top: 5vh;
+    padding: 2vh 3vw;
+    border-radius: 1vw;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.container h1 {
+    font-family: 'Roboto', sans-serif;  /* Usando a fonte personalizada */
+    color: whitesmoke;
+    font-size: 3.5vw; /* Aumenta o tamanho da fonte */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Adiciona sombra ao texto */
+    letter-spacing: 2px;
+    margin-bottom: 2vh;
+    text-transform: uppercase; /* Transforma o texto em maiúsculas */
+}
+.user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 12vw;
+    height: 20vh;
+    overflow: hidden;
+    justify-content: center;
+    text-align: center;
+    border-radius: 1vw;
+    padding: 1.5vh;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user:hover {
+    transform: translateY(-5px);
+}
+
+.user img {
+    width: 13vw;
+    height: 13vw;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.user:hover img {
+    transform: none;
+}
+
+.user label {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0;
+    padding: 8px 15px;
+    border-radius: 12px;
+    visibility: hidden;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid whitesmoke;
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0.5s;
+    white-space: nowrap; /* Garante que o nome ficará sempre em uma linha */
+}
+
+.user:hover label {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s 0s;
+}

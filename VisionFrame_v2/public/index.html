@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindo à Nossa Plataforma</title>
+    <link rel="stylesheet" href="../styles/indexL.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="../src/nav.png" alt=""></a>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Oque Vem depois?</h1>
+        <h3>Descrubra seu próximo caminho</h3>
+        <a href="index2.html"><button>Começar</button></a>
+    </div>
+    <script>
+        async function verifyLogin() {
+            try {
+                const response = await fetch("http://26.207.242.213/visionframe_v2/api/api.php?endpoint=verifyLogin");
+                const data = await response.json();
+
+                if (data.success) {
+                    window.location.href = "http://26.207.242.213/visionframe_v2/pages/index.html";
+                }
+            } catch (error) {
+                console.error("Erro ao verificar login");
+            }
+        }
+        verifyLogin();
+    </script>
+</body>
+</html>

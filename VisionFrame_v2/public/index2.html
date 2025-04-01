@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../styles/indexL2.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html"><img src="../src/nav.png" alt=""></a>
+        </nav>
+    </header>
+    <div class="form-container">
+        <h1>Animes ilimitados e muito mais</h1>
+        <div class="buttons">
+            <button class="new-user-btn">Novo Aqui?</button>
+            <button class="existing-user-btn">Já Cliente?</button>
+        </div>
+        <div class="register active">
+            <!-- Formulário de registro -->
+            <form id="register-form">
+                <label>Usuário</label>
+                <input type="text" name="username" id="username" required>
+                <label>Email</label>
+                <input type="email" name="email" id="email2" required>
+                <label>Senha</label>
+                <input type="password" name="password2" id="password2" required>
+                <input type="submit" value="Registrar">
+            </form>
+        </div>
+    
+        <div class="login">
+            <!-- Formulário de login -->
+            <form id="login-form">
+                <label>Email</label>
+                <input type="email" name="email" id="email" required>
+                <label>Senha</label>
+                <input type="password" name="password" id="password" required>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+    
+    <script src="../js/script.js"></script>
+    <script>
+        async function verifyLogin() {
+            try {
+                const response = await fetch("http://26.207.242.213/visionframe_v2/api/api.php?endpoint=verifyLogin");
+                const data = await response.json();
+                console.log(data);
+                if (data.success) {
+                    window.location.href = "http://26.207.242.213/visionframe_v2/pages/index.html";
+                }
+            } catch (error) {
+                console.error("Erro ao verificar login");
+            }
+        }
+
+        // Função para quando o formulário de registro for enviado
+        async function handleRegisterSubmit(event) {
+            event.preventDefault(); // Evitar o envio do formulário
+                
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email2').value;
+            const password = document.getElementById('password2').value;
+                
+            // Corrigido a interpolação de string usando crase (`) e `${}`
+            console.log('Registrando usuário:', { username, email, password });
+        }      
+
+        async function handleLoginSubmit(event) {
+            event.preventDefault(); // Evitar o envio do formulário
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const response = await fetch(`http://26.207.242.213/visionframe_v2/api/api.php?endpoint=login&email=${email}&password=${password}`);
+                
+            // Verifica a resposta da API
+            const data = await response.json();
+            console.log(data);
+
+            // Corrigido a verificação da resposta
+            if (data.success === true) {
+                window.location.href = "http://26.207.242.213/visionframe_v2/pages/index.html";
+            } else {
+                console.log("Login falhou");
+                // Adicionar tratamento de erro, como uma mensagem de erro na tela
+            }
+        }
+
+        verifyLogin();
+
+        document.getElementById('register-form').addEventListener('submit', handleRegisterSubmit);
+        document.getElementById('login-form').addEventListener('submit', handleLoginSubmit);
+    </script>
+</body>
+</html>
